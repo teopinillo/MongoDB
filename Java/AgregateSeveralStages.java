@@ -66,11 +66,32 @@ for (Document doc: iterable){
  System.out.println(doc);
  groupByResults.add(doc);
 }
-
-/*The aggregation framwork also provides sates that combine operations
-that are typically expressed by several stages. For example, $sortByCount,
-combines both the $group with the a $sum accumulator with a $sort stage.
+/*
+    The aggregation framework also provides stages that combine
+    operations that are typically expressed by several stages.
+    For example, $sortByCount, combines both the $group with a $sum
+    accumulator with a $sort stage.    
 */
+
+    List<Bson> shorterPipeline = new ArrayList<>();
+
+    // we already have built booth $match and $unwind stages
+    shorterPipeline.add(matchStage);
+    shorterPipeline.add(unwindCastStage);
+
+    // create the $sortByCountStage
+    Bson sortByCount = Aggregates.sortByCount("$cast");
+
+    // append $sortByCount stage to shortPipeline
+    shorterPipeline.add(sortByCount);
+
+    // list to collect shorterPipeline results
+    List<Document> sortByCountResults = new ArrayList<>();
+
+    for (Document doc : moviesCollection.aggregate(shorterPipeline)) {
+      System.out.println(doc);
+      sortByCountResults.add(doc);
+    }
 
 
 
