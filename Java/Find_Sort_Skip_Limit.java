@@ -8,7 +8,7 @@
                                         .skip(100)
                                         .limit(10);
   
- ......
+ //--------------------------------------------------------------------------------------------------
     public List<Document> getMoviesByGenre(String sortKey, int limit, int skip, String... genres) {
     // query filter
     Bson castFilter = Filters.in("genres", genres);
@@ -22,3 +22,4 @@
     .forEachRemaining(movies::add);
     return movies;
   }
+//--------------------------------------------------------------------------------------------------
