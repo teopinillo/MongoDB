@@ -23,3 +23,27 @@
     return movies;
   }
 //--------------------------------------------------------------------------------------------------
+ /**
+   * This method will execute the following mongo shell query: db.movies.find({"$text": { "$search":
+   * `keywords` }}, {"score": {"$meta": "textScore"}}).sort({"score": {"$meta": "textScore"}})
+   *
+   * @param limit - integer value of number of documents to be limited to.
+   * @param skip - number of documents to be skipped.
+   * @param keywords - text matching keywords or terms
+   * @return List of query matching Document objects
+   */
+  public List<Document> getMoviesByText(int limit, int skip, String keywords) {
+    Bson textFilter = Filters.text(keywords);
+    Bson projection = Projections.metaTextScore("score");
+    Bson sort = Sorts.metaTextScore("score");
+    List<Document> movies = new ArrayList<>();
+    moviesCollection
+        .find(textFilter)
+        .projection(projection)
+        .sort(sort)
+        .skip(skip)
+        .limit(limit)
+        .iterator()
+        .forEachRemaining(movies::add);
+    return movies;
+  }
