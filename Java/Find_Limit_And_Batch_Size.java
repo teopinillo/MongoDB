@@ -1,5 +1,3 @@
- @Test
-  public void testLimitAndBatchSize() {
 
     /*
      * Another cursor method is limit(). The ability to define how many
@@ -13,11 +11,10 @@
     List<Document> limitedList = new ArrayList<>();
     limited.forEach(limitedList::add);
 
-    Assert.assertEquals(10, limitedList.size());
-
-    /*
+      /*
      * One interesting aspect of limit() is that we can use that to
-     * influence the cursor batchSize. @see <a href="https://docs.mongodb.com/manual/reference/method/cursor.batchSize/">batchSize</a>
+     * influence the cursor batchSize. 
+      @see <a href="https://docs.mongodb.com/manual/reference/method/cursor.batchSize/">batchSize</a>
      * The cursor batch size determines the number of documents to be
      * returned in one cursor batch. If our query hits 1M elements you may
      * not want to wait till all of those elements are returned to start
@@ -44,11 +41,4 @@
      *     db.sortable.find().limit(10).batchSize(10)
      * </p>
      */
-
-    int count = 0;
-    for (Document d : limitedBatched) {
-      count++;
-    }
-
-    Assert.assertEquals(10, count);
   }
