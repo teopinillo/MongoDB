@@ -21,12 +21,6 @@
     // Iterating over the result set, we will find the expected set of
     // documents
     List<Document> sortedArray = new ArrayList<>();
-
     sorted.iterator().forEachRemaining(sortedArray::add);
 
-    // The number of elements should match the total 1000 documents inserted
-    Assert.assertEquals(1000, sortedArray.size());
-
-    // And the the document of the array should have an `i` value of 999
-    Assert.assertEquals(Integer.valueOf(999), sortedArray.get(0).getInteger("i"));
   }
