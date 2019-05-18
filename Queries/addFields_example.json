@@ -1,0 +1,18 @@
+db.solarSystem.aggregate ([
+ {
+   $project: {_id:0, gravity: "$gravity.value", name:1}
+ }
+]).pretty()
+
+
+
+db.solarSystem.aggregate ([
+ {
+   $addFields: {
+	gravity: "$gravity.vallue",
+  	mass: "$mass.value",
+	radius: "$radius.value",
+        sma: "$sma.value"
+   }
+ }
+]).pretty()
