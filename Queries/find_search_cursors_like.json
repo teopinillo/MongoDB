@@ -44,3 +44,8 @@ db.solarSystem.aggregate ([{
 
 //sort the elements, -1 descending
 db.solarSystem.find ({}, {_id:0, name:1, numbersOfMoons:1}).sort ({numberOfMoons:-1} ).pretty()
+
+db.solarSystem.aggregate([
+ { $project : {_id:0, name:1, numberOfMoons: 1}},
+ { $sort: {numberOfMoons: -1 }
+ ])
