@@ -1,0 +1,46 @@
+//find all elements
+db.solarSystem.find ({}, {_id:0, name:1, numbersOfMoons:1}).pretty()
+
+//count all the documents retrived.
+db.solarSystem.find ({}, {_id:0, name:1, numbersOfMoons:1}).count()
+
+or
+
+db.solarSystem.aggregate ([
+ { $match   : { type: "Terrestrial planet"} },
+ { $project : { _id:0, name:1, numberOfMoons:1 } },
+ { $count   : "terrestrial planets" }
+ ])
+
+
+//skip 5 documents
+db.solarSystem.find ({}, {_id:0, name:1, numbersOfMoons:1}).skip(5).pretty()
+
+or
+
+db.solarSystem.aggregate ([{
+ "$project": {
+  _id:0,
+  name:1,
+  numberOfMoons:1
+  }
+ },{$skip:1}
+])
+
+
+//limit the number of documents to return
+db.solarSystem.find ({}, {_id:0, name:1, numbersOfMoons:1}).limit(5).pretty()
+
+db.solarSystem.aggregate ([{
+ "$project": {
+  _id:0,
+  name:1,
+  numberOfMoons:1
+  }
+ },
+ {"$limit":5}
+])
+
+
+//sort the elements, -1 descending
+db.solarSystem.find ({}, {_id:0, name:1, numbersOfMoons:1}).sort ({numberOfMoons:-1} ).pretty()
