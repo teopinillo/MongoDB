@@ -49,3 +49,9 @@ db.solarSystem.aggregate([
  { $project : {_id:0, name:1, numberOfMoons: 1}},
  { $sort: {numberOfMoons: -1 }
  ])
+  
+ //we can sort for multiples fields
+  db.solarSystem.aggregate([
+ { $project : {_id:0, name:1, numberOfMoons: 1}},
+ { $sort: {hasMagneticField:-1, numberOfMoons: -1,}
+ ])
