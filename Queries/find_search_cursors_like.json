@@ -55,3 +55,19 @@ db.solarSystem.aggregate([
  { $project : {_id:0, name:1, numberOfMoons: 1}},
  { $sort: {hasMagneticField:-1, numberOfMoons: -1,}
  ])
+
+//If Sort is near of the beginnig of our pipeline, and place before a project, and unwinds in the 
+//group stage, it can take advantage of indexes. Otherwise, this sort stage will perfomr an in-memory 
+//sort, which will greatly increase the memory consumption of our server. Sort operations within that vision
+//pipeline are limited to 100 megabytes of RAM by default. To allow handling larger data sets, we need to allow 
+//DsikUse, which is an agreggation pipeline option that we can provide to aggregate function. By doing so, 
+//we will performing the excess of 100 megabytes of memory requiered to do a sort using disk to help us sort out the results.
+
+//{allowDiskUse: true}
+
+ //we can sort for multiples fields
+  db.solarSystem.aggregate([
+ { $project : {_id:0, name:1, numberOfMoons: 1}},
+ { $sort: {hasMagneticField:-1, numberOfMoons: -1,}
+ ],{allowDiskUse: true})
+
