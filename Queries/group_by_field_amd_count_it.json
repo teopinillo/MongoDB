@@ -1,0 +1,7 @@
+Group documents based on the year and count it. Put the result in the variable num_films_in_year.
+
+db.movies.aggregate ([{
+ $group : {"$year",
+ num_films_in_year: {$sum:1}
+ }
+ }])

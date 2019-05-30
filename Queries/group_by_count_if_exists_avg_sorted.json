@@ -1,0 +1,12 @@
+Group documents based on how many directors, and count it. Put the result in the variable numFilms, get the avergae metacritic and sorted in descend order by numbers of directors.
+
+ db.movies.aggregate ([{$group: {
+...   _id: {numDirectors:{
+...     $cond:[{$isArray:"$directors"},{$size:"$directors"},0]
+...   }
+...   },numFilms:{$sum:1},
+...   averageMetacritic: {$avg:"$metacritic"}
+...
+...   }}, {$sort: {
+...   "_id.numDirecors": -1
+... }}])
